@@ -44,16 +44,18 @@
             // 
             // txt_turnos
             // 
+            this.txt_turnos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_turnos.Location = new System.Drawing.Point(194, 547);
             this.txt_turnos.Name = "txt_turnos";
-            this.txt_turnos.Size = new System.Drawing.Size(100, 20);
+            this.txt_turnos.Size = new System.Drawing.Size(100, 38);
             this.txt_turnos.TabIndex = 1;
+            this.txt_turnos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(487, 576);
+            this.ClientSize = new System.Drawing.Size(487, 598);
             this.Controls.Add(this.txt_turnos);
             this.Controls.Add(this.txt_mapa);
             this.Name = "Form1";

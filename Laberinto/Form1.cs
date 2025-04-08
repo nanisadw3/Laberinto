@@ -20,6 +20,8 @@ namespace Laberinto
         Jugador jugador; 
         private int turnos; 
         private int intentos; 
+        private int tunos_primero;
+        private int x, y;
         public Form1()
         {
             InitializeComponent();
@@ -81,7 +83,10 @@ namespace Laberinto
                             {
                                 throw new Exception("El archivo no tiene un formato válido.");
                             }
-                            txt_turnos.Text = turnos.ToString();
+                            intentos = turnos;
+                            this.tunos_primero = turnos;
+                            txt_turnos.Text = intentos.ToString();
+                            
                         }
                         else
                         {
@@ -91,7 +96,11 @@ namespace Laberinto
 
                                 if (linea[col] == 'i')
                                 {
+
                                     jugador = new Jugador(row - 1, col);
+                                    x = row - 1;
+                                    y = col;
+
                                 }
                             }
                         }
@@ -132,9 +141,6 @@ namespace Laberinto
 
         private void turno(string seleccion)
         {
-            turnos--;
-            intentos++;
-
             int deltaX = 0;
             int deltaY = 0;
 
@@ -150,6 +156,9 @@ namespace Laberinto
             {
                 return;
             }
+
+            turnos--;
+            intentos++;
 
             int originalX = jugador.X;
             int originalY = jugador.Y;
@@ -178,6 +187,15 @@ namespace Laberinto
                     MessageBox.Show("¡Felicidades! Has encontrado la salida en " + intentos.ToString() + " intentos te quedaron " + turnos.ToString() + " turnos.");
                     this.Close();
                 }
+                else if (mapa[jugador.X, jugador.Y] == 'r')
+                {
+                    turnos = tunos_primero;
+                    intentos = 0;
+                    mapa[jugador.X, jugador.Y] = 'r';
+                    jugador.X = x;
+                    jugador.Y = y;
+                    encontroPared = true;
+                }
             }
 
             mapa[jugador.X, jugador.Y] = 'i';
@@ -193,7 +211,6 @@ namespace Laberinto
         }
 
 
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -207,12 +224,22 @@ namespace Laberinto
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             string seleccion = "";
-            if (e.KeyCode == Keys.Up) seleccion = "u";
-            else if (e.KeyCode == Keys.Down) seleccion = "d";
-            else if (e.KeyCode == Keys.Left) seleccion = "l";
-            else if (e.KeyCode == Keys.Right) seleccion = "r";
+            if (e.KeyCode == Keys.Up) { seleccion = "u"; turno(seleccion); }
+            else if (e.KeyCode == Keys.Down) { seleccion = "d"; turno(seleccion); }
+            else if (e.KeyCode == Keys.Left) { seleccion = "l"; turno(seleccion); }
+            else if (e.KeyCode == Keys.Right) { seleccion = "r"; turno(seleccion); }
+            else if (e.KeyCode == Keys.J) {
+                MessageBox.Show("La posicion en x es " + jugador.X.ToString() + " y la posicion esn y es " + jugador.Y.ToString());
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                
+            }
+            else
+            {
+                MessageBox.Show("Selecciona una opción válida");
+            }
 
-            turno(seleccion);
         }
 
     }
